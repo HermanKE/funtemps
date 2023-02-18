@@ -26,6 +26,8 @@ func init() {
 
 	// Definerer og initialiserer flagg-variablene
 	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
+	flag.Float64Var(&celsius, "C", 0.0, "temperatur i grader celsius")
+	flag.Float64Var(&kelvin, "K", 0.0, "temperatur i grader kelvin")
 	// Du må selv definere flag-variablene for "C" og "K"
 	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
 	flag.StringVar(&funfacts, "funfacts", "sun", "\"fun-facts\" om sun - Solen, luna - Månen og terra - Jorden")
@@ -38,6 +40,8 @@ func main() {
 
 	flag.Parse()
 
+	// --------------------------Første forsøk på konvertering:--------------------------
+	/*
 	// konvertering av Fahrenheit:
 	if out == "C" {
 		celsius := conv.FarhenheitToCelsius(fahr)
@@ -69,7 +73,42 @@ func main() {
 		fmt.Printf("%v degrees to Kelvin is %v degrees Celsius\n", kelvin, celsius)
 	} else {
 		fmt.Printf("Invalid output unit specified\n")
+	} 
+	*/
+
+	// --------------------------Andre forsøk på konvertering:--------------------------
+	var res float64
+
+	if celsius != 0 {
+		if out == "F" {
+            res = conv.CelsiusToFarhenheit(celsius)
+			fmt.Printf("%v °C er %v °F\n", celsius, res,)
+		} else if out == "K" {
+			res = conv.CelsiusToKelvin(celsius)
+			fmt.Printf("%v °C er %v °K\n", celsius, res,)
+		}
 	}
+		
+	if fahr != 0 {
+		if out == "C" {
+			res = conv.FarhenheitToCelsius(fahr)
+			fmt.Printf("%v °F er %v °C\n", fahr, res,)
+		} else if out == "K" {
+			res = conv.FarhenheitToKelvin(fahr)
+			fmt.Printf("%v °F er %v °K\n", fahr, res,)
+    	}
+	}
+
+	if kelvin != 0 {
+		if out == "F" {
+            res = conv.KelvinToFarhenheit(kelvin)
+			fmt.Printf("%v °K er %v °F\n", kelvin, res,)
+		} else if out == "C" {
+			res = conv.KelvinToCelsius(kelvin)
+			fmt.Printf("%v °K er %v °C\n", kelvin, res,)
+        }
+	}
+
 
 	/**
 	    Her må logikken for flaggene og kall til funksjoner fra conv og funfacts
@@ -92,6 +131,7 @@ func main() {
 	*/
 
 	// Her er noen eksempler du kan bruke i den manuelle testingen
+	/*
 	fmt.Println(fahr, out, funfacts)
 
 	fmt.Println("len(flag.Args())", len(flag.Args()))
@@ -105,11 +145,12 @@ func main() {
 		// skal returnere °C
 		fmt.Println("0°F er -17.78°C")
 	}
-
+	*/
 }
 
 // Funksjonen sjekker om flagget er spesifisert på kommandolinje
 // Du trenger ikke å bruke den, men den kan hjelpe med logikken
+/*
 func isFlagPassed(name string) bool {
 	found := false
 	flag.Visit(func(f *flag.Flag) {
@@ -119,3 +160,4 @@ func isFlagPassed(name string) bool {
 	})
 	return found
 }
+*/
